@@ -17,19 +17,41 @@
         function test_allGetters()
         {
             $brand_name = "Converse";
-            $type = ["Sneaker", "High-tops", "Lace-up"];
             $id = 4;
-            $new_brand = new Brand($brand_name, $type, $id);
+            $test_brand = new Brand($brand_name, $id);
 
-            $result1 = $new_brand->getBrandName();
-            $result2 = $new_brand->getType();
-            $result3 = $new_brand->getId();
+            $result1 = $test_brand->getBrandName();
+            $result3 = $test_brand->getId();
 
             $this->assertEquals($brand_name, $result1);
-            $this->assertEquals($type, $result2);
             $this->assertEquals($id, is_numeric($result3));
         }
 
+        function test_save()
+        {
+            $brand_name = "Converse";
+            $test_brand = new Brand($brand_name, null);
+
+            $test_brand->save();
+            $result = Brand::getAll();
+
+            $this->assertEquals([$test_brand], $result);
+        }
+
+        function test_getAll()
+        {
+            $brand_name = "Converse";
+            $test_brand = new Brand($brand_name, null);
+            $test_brand->save();
+
+            $brand_name2 = "Nike";
+            $test_brand2 = new Brand ($brand_name2, null);
+            $test_brand2->save();
+
+            $result = Brand::getAll();
+
+            $this->assertEquals([$test_brand, $test_brand2], $result);
+        }
 
 
     }
