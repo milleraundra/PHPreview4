@@ -89,7 +89,14 @@
 
         function addStore($store)
         {
-            $GLOBALS['DB']->exec("INSERT INTO stores_brands (store_id, brand_id) VALUES ({$store->getId()}, {$this->getId()});");
+            $query = $GLOBALS['DB']->query("SELECT * FROM stores_brands WHERE store.id = {$store->getId()} AND brand.id = {$this->getId()};");
+            $already_saved = null;
+            if ($query == false) {
+                $GLOBALS['DB']->exec("INSERT INTO stores_brands (store_id, brand_id) VALUES ({$store->getId()}, {$this->getId()});");
+            } else {
+                $already_saved = true;
+            }
+            return $already_saved;
         }
 
         function getStores()
