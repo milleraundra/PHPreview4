@@ -159,6 +159,28 @@
             $this->assertEquals($new_city, $result3);
             $this->assertEquals($new_state, $result4);
         }
+
+        function test_delete()
+        {
+            $store_name = "Payless";
+            $street = "392 SW Washington St.";
+            $city = "Oregon City";
+            $state = "OR";
+            $test_store = new Store($store_name, $street, $city, $state, null);
+            $test_store->save();
+
+            $store_name = "Dress Barn";
+            $street = "180 SW Washington St.";
+            $city = "Clackamas";
+            $state = "OR";
+            $test_store2 = new Store($store_name, $street, $city, $state, null);
+            $test_store2->save();
+
+            $test_store->delete();
+            $result = Store::getAll();
+
+            $this->assertEquals([$test_store2], $result);
+        }
     }
 
 
