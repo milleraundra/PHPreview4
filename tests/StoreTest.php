@@ -70,7 +70,6 @@
             $this->assertEquals([$test_store], $result);
         }
 
-
         function test_getAll()
         {
             $store_name = "Payless";
@@ -112,6 +111,27 @@
             $result = Store::getAll();
 
             $this->assertEquals([], $result);
+        }
+
+        function test_find()
+        {
+            $store_name = "Payless";
+            $street = "392 SW Washington St.";
+            $city = "Oregon City";
+            $state = "OR";
+            $test_store = new Store($store_name, $street, $city, $state, null);
+            $test_store->save();
+
+            $store_name = "Dress Barn";
+            $street = "180 SW Washington St.";
+            $city = "Clackamas";
+            $state = "OR";
+            $test_store2 = new Store($store_name, $street, $city, $state, null);
+            $test_store2->save();
+
+            $result = Store::find($test_store->getId());
+
+            $this->assertEquals($test_store, $result);
         }
     }
 

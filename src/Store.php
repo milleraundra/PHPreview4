@@ -98,6 +98,19 @@
             $GLOBALS['DB']->exec("DELETE FROM stores;");
         }
 
+        static function find($id)
+        {
+            $all_stores = Store::getAll();
+            $found_store = null;
+            foreach($all_stores as $store) {
+                $store_id = $store->getId();
+                if ($store_id == $id) {
+                    $found_store = $store;
+                }
+            }
+            return $found_store;
+        }
+
 
 
 
