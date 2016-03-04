@@ -90,9 +90,9 @@
         function addStore($input_store)
         {
             $query = $GLOBALS['DB']->query("SELECT * FROM stores_brands WHERE store_id = {$input_store->getId()} AND brand_id = {$this->getId()};");
-            $returned_stores = $query->fetchAll(PDO::FETCH_ASSOC);
+            $returned_entries = $query->fetchAll(PDO::FETCH_ASSOC);
             $already_saved = null;
-            if ($returned_stores != []) {
+            if ($returned_entries != []) {
                 $already_saved = true;
             } else {
                 $GLOBALS['DB']->exec("INSERT INTO stores_brands (store_id, brand_id) VALUES ({$input_store->getId()}, {$this->getId()});");

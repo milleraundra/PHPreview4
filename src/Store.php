@@ -128,7 +128,15 @@
 
         function addBrand($brand)
         {
-            $GLOBALS['DB']->exec("INSERT INTO stores_brands(store_id, brand_id) VALUES ({$this->getId()}, {$brand->getId()});");
+            $query = $GLOBALS['DB']->query("SELECT * FROM stores_brands WHERE store_id = {$this->getId()} AND brand_id = {$brand->getId()};");
+            $returned_entries = $query->fetchAll(PDO::FETCH_ASSOC);
+            $already_saved = null;
+            if ($returned_entries != []) {
+                $alread_saved = true;
+            } else {
+                $GLOBALS['DB']->exec("INSERT INTO stores_brands(store_id, brand_id) VALUES ({$this->getId()}, {$brand->getId()});");
+            }
+            return $already_saved;
         }
 
         function getBrands()

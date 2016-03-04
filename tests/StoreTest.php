@@ -227,6 +227,7 @@
 
             //Act
             $test_store->addBrand($test_brand);
+            $test_store->addBrand($test_brand);
             $test_store->addBrand($test_brand2);
             $result = $test_store->getBrands();
 
