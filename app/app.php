@@ -38,16 +38,13 @@
 //view store page
     $app->get("/store/{id}", function($id) use ($app) {
         $store = Store::find($id);
-        $store_brands = $store->getBrands();
-        $all_brands = Brand::getAll();
         $message = null;
-        return $app['twig']->render('store.html.twig', array('store' => $store, 'match_brands' => $store_brands, 'all_brands' => $all_brands, 'message' => $message));
+        return $app['twig']->render('store.html.twig', array('store' => $store, 'match_brands' => $store->getBrands(), 'all_brands' => Brand::getAll(), 'message' => $message));
     });
 //add a brand to a store
     $app->post("/store/{id}/add/brand", function($id) use ($app) {
         $store = Store::find($id);
-        $brand_id = $_POST['brand'];
-        $brand = Brand::find($brand_id);
+        $brand = Brand::find($_POST['brand']);
         $already_saved = $store->addBrand($brand);
         $message = null;
         if ($already_saved != null) {
@@ -55,9 +52,7 @@
         } else {
             $message = "You added a new brand.";
         }
-        $store_brands = $store->getBrands();
-        $all_brands = Brand::getAll();
-        return $app['twig']->render('store.html.twig', array('store' => $store, 'match_brands' => $store_brands, 'all_brands' => $all_brands, 'message' => $message));
+        return $app['twig']->render('store.html.twig', array('store' => $store, 'match_brands' => $store->getBrands(), 'all_brands' => Brand::getAll(), 'message' => $message));
     });
 
 //create brand on store page
@@ -66,18 +61,42 @@
         $new_brand = new Brand($_POST['brand_name']);
         $new_brand->save();
         $message = null;
-        $store_brands = $store->getBrands();
-        $all_brands = Brand::getAll();
-        return $app['twig']->render('store.html.twig', array('store' => $store, 'match_brands' => $store_brands, 'all_brands' => $all_brands, 'message' => $message));
+        return $app['twig']->render('store.html.twig', array('store' => $store, 'match_brands' => $store->getBrands(), 'all_brands' => Brand::getAll(), 'message' => $message));
+    });
+
+//delete individual store
+    $app->post("/store/{id}/delete", function($id) use ($app) {
+        $store = Store::find($id);
+        $store->delete();
+        return $app['twig']->render('index.html.twig', array('all_stores' => Store::getAll(), 'all_brands' => Brand::getAll()));
     });
 
 //view brand page
     $app->get("/brand/{id}", function($id) use ($app) {
         $brand = Brand::find($id);
-        $match_stores = $brand->getStores();
-        $all_stores = Store::getAll();
         $message = null;
-        return $app['twig']->render('brand.html.twig', array('brand'=> $brand, 'match_stores' => $match_stores, 'all_stores' => $all_stores, 'message' => $message));
+        return $app['twig']->render('brand.html.twig', array('brand'=> $brand, 'match_stores' => $brand->getStores(), 'all_stores' => Store::getAll(), 'message' => $message));
+    });
+// add store to a brand
+    $app->post("/brand/{id}/add/store", function($id) use ($app) {
+        $brand = Brand::find($id);
+        $store = Store::find($_POST['store']);
+        $already_saved = $brand->addStore($store);
+        $message = null;
+        if ($already_saved != null) {
+            $message = "That store has already been added.";
+        } else {
+            $message = "You added a new store.";
+        }
+        return $app['twig']->render('brand.html.twig', array('brand'=> $brand, 'match_stores' => $brand->getStores(), 'all_stores' => Store::getAll(), 'message' => $message));
+    });
+//create store on brand page
+    $app->post("/brand/{id}/create/store", function($id) use ($app) {
+        $new_store = new Store($_POST['store_name'], $_POST['street'], $_POST['city'], $_POST['state']);
+        $new_store->save();
+        $brand = Brand::find($id);
+        $message = null;
+        return $app['twig']->render('brand.html.twig', array('brand'=> $brand, 'match_stores' => $brand->getStores(), 'all_stores' => Store::getAll(), 'message' => $message));
     });
 
     return $app;

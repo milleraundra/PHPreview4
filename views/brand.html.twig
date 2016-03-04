@@ -1,8 +1,9 @@
+<!DOCTYPE html>
 <html>
     <head>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
         <meta charset="utf-8">
-        <title>Shoe Shop</title>
+        <title></title>
     </head>
     <body>
         <div class="container">
@@ -13,24 +14,49 @@
 <!-- Container -->
             <div class="row">
                 <div class="col-md-6">
-                    <h2>Stores:</h2>
+                    <h2>BRAND: {{ brand.getBrandName }}</h2>
+                    {% if match_stores is not empty %}
+                        <h3>Stores:</h3>
+                        <ul>
+                            {% for store in match_stores %}
+                            <li><a href="/store/{{ store.getId }}">{{ store.getStoreName }}</a>, {{store.getCity}} {{store.getState}}</li>
+                            {% endfor %}
+                        </ul>
+                        {% if message is not empty %}
+                            <h5>{{ message }}</h5>
+                        {% endif %}
+                    {% else %}
+                        <h4>This brand has no stores.</h4>
+                    {% endif %}
+
+                    <form class="" action="/" method="get">
+                        <button type="submit" name="button">Home</button>
+                    </form>
+                </div>
+<!--Store Listing -->
+                <div class="col-md-6">
+                    <h3>Other Stores:</h3>
                     {% if all_stores is not empty %}
-                    <h3>All Stores:</h3>
                     <ul>
                         {% for store in all_stores %}
-                            <li><a href="/store/{{ store.getId }}">{{ store.getStoreName }}</a> ({{ store.getCity }}, {{ store.getState }})</li>
+                        <li><a href="/store/{{ store.getId }}">{{ store.getStoreName }}</a>
+                            <form class="" action="/brand/{{ brand.getId }}/add/store" method="post">
+                            <input type="hidden" name="store" value="{{ store.getId }}">
+                            <button type="submit" name="button">ADD STORE</button>
+                            </form>
+                        </li>
                         {% endfor %}
                     </ul>
                     {% else %}
-                        <h4>No stores have been added yet. Please add one below!</h4>
+                        <h4>Create a new store below.</h4>
                     {% endif %}
+
                     <h3>Create a Store:</h3>
-                    <form action="/create/store" method="post">
+                    <form action="/brand/{{brand.getId}}/create/store" method="post">
                         <div class="form-group">
                             <label for="store_name">Store Name:</label>
                             <input type="text" name="store_name" value="">
                         </div>
-
                         <h5>Address:</h5>
                         <div class="form-group">
                             <label for="street">Street:</label>
@@ -45,28 +71,6 @@
                             <input type="text" name="state" maxlength="2">
                         </div>
                         <button type="submit" name="button">Create Store</button>
-                    </form>
-                </div>
-
-                <div class="col-md-6">
-                    <h2>Brands:</h2>
-                    {% if all_brands is not empty %}
-                    <h3>All Brands:</h3>
-                    <ul>
-                        {% for brand in all_brands %}
-                            <li><a href="/brand/{{ brand.getId }}">{{ brand.getBrandName }}</a></li>
-                        {% endfor %}
-                    </ul>
-                    {% else %}
-                        <h4>No brands have been added yet. Please add one below!</h4>
-                    {% endif %}
-                    <h3>Create a Brand:</h3>
-                    <form action="/create/brand" method="post">
-                        <div class="form-group">
-                            <label for="brand_name">Brand Name:</label>
-                            <input type="text" name="brand_name" value="">
-                        </div>
-                        <button type="submit" name="button">Create Brand</button>
                     </form>
                 </div>
             </div>

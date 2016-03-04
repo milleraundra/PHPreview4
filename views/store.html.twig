@@ -14,14 +14,15 @@
 <!-- Container -->
             <div class="row">
                 <div class="col-md-6">
-                    <h2>{{ store.getStoreName }}</h2>
+                    <h2>STORE: {{ store.getStoreName }}</h2>
+                    <h4>Address:</h4>
                     <p>{{ store.getStreet }}</p>
                     <p>{{ store.getCity }}, {{ store.getState }}</p>
                     {% if match_brands is not empty %}
                         <h3>Brands:</h3>
                         <ul>
                             {% for brand in match_brands %}
-                                <li><a href="brand/{{ brand.getId }}">{{ brand.getBrandName }}</a></li>
+                                <li><a href="/brand/{{ brand.getId }}">{{ brand.getBrandName }}</a></li>
                             {% endfor %}
                         </ul>
                         {% if message is not empty %}
@@ -30,6 +31,13 @@
                     {% else %}
                         <h4>This store has no brands.</h4>
                     {% endif %}
+                    <br>
+                    <form class="" action="/" method="get">
+                        <button type="submit" name="button">Home</button>
+                    </form>
+                    <form class="" action="/store/{{store.getId}}/delete" method="post">
+                        <button type="submit" name="button">DELETE STORE</button>
+                    </form>
                 </div>
 <!-- Brand listing -->
                 <div class="col-md-6">
@@ -37,7 +45,7 @@
                     {% if all_brands is not empty %}
                     <ul>
                         {% for brand in all_brands %}
-                        <li><a href="brand/{{ brand.getId }}">{{ brand.getBrandName }}</a>
+                        <li><a href="/brand/{{ brand.getId }}">{{ brand.getBrandName }}</a>
                             <form class="" action="/store/{{ store.getId }}/add/brand" method="post">
                                 <input type="hidden" name="brand" value="{{ brand.getId }}">
                                 <button type="submit" name="button">ADD BRAND</button>
