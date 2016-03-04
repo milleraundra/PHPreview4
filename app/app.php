@@ -72,7 +72,13 @@
     });
 
 //view brand page
-    // $app->get("/brand/{id}")
+    $app->get("/brand/{id}", function($id) use ($app) {
+        $brand = Brand::find($id);
+        $match_stores = $brand->getStores();
+        $all_stores = Store::getAll();
+        $message = null;
+        return $app['twig']->render('brand.html.twig', array('brand'=> $brand, 'match_stores' => $match_stores, 'all_stores' => $all_stores, 'message' => $message));
+    });
 
     return $app;
 
