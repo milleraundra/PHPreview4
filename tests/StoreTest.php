@@ -133,6 +133,32 @@
 
             $this->assertEquals($test_store, $result);
         }
+
+        function test_update()
+        {
+            $store_name = "Payless";
+            $street = "392 SW Washington St.";
+            $city = "Oregon City";
+            $state = "OR";
+            $test_store = new Store($store_name, $street, $city, $state, null);
+            $test_store->save();
+
+            $new_store_name = "Khols";
+            $new_street = "924 NE Trump St.";
+            $new_city = "Austin";
+            $new_state = "TX";
+            $test_store->update($new_store_name, $new_street, $new_city, $new_state);
+
+            $result1 = $test_store->getStoreName();
+            $result2 = $test_store->getStreet();
+            $result3 = $test_store->getCity();
+            $result4 = $test_store->getState();
+
+            $this->assertEquals($new_store_name, $result1);
+            $this->assertEquals($new_street, $result2);
+            $this->assertEquals($new_city, $result3);
+            $this->assertEquals($new_state, $result4);
+        }
     }
 
 

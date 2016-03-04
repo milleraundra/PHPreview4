@@ -111,6 +111,15 @@
             return $found_store;
         }
 
+        function update($new_store_name, $new_street, $new_city, $new_state)
+        {
+            $GLOBALS['DB']->exec("UPDATE stores SET store_name = '{$new_store_name}', street = '{$new_street}', city = '{$new_city}', state = '{$new_state}' WHERE id = {$this->getId()};");
+            $this->setStoreName($new_store_name);
+            $this->setStreet($new_street);
+            $this->setCity($new_city);
+            $this->setState($new_state);
+        }
+
 
 
 
