@@ -40,7 +40,8 @@
         $store = Store::find($id);
         $store_brands = $store->getBrands();
         $all_brands = Brand::getAll();
-        return $app['twig']->render('store.html.twig', array('store' => $store, 'match_brands' => $store_brands, 'all_brands' => $all_brands));
+        $message = null;
+        return $app['twig']->render('store.html.twig', array('store' => $store, 'match_brands' => $store_brands, 'all_brands' => $all_brands, 'message' => $message));
     });
 //add a brand to a store
     $app->post("/store/{id}/add/brand", function($id) use ($app) {
@@ -63,11 +64,11 @@
     $app->post("/store/{id}/create/brand", function($id) use ($app) {
         $store = Store::find($id);
         $new_brand = new Brand($_POST['brand_name']);
-        var_dump($new_brand);
         $new_brand->save();
+        $message = null;
         $store_brands = $store->getBrands();
         $all_brands = Brand::getAll();
-        return $app['twig']->render('store.html.twig', array('store' => $store, 'match_brands' => $store_brands, 'all_brands' => $all_brands));
+        return $app['twig']->render('store.html.twig', array('store' => $store, 'match_brands' => $store_brands, 'all_brands' => $all_brands, 'message' => $message));
     });
 
 //view brand page
