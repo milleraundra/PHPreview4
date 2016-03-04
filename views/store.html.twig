@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+        <meta charset="utf-8">
+        <title></title>
+    </head>
+    <body>
+        <div class="container">
+<!-- Header -->
+            <div class="page-header">
+                <h1>Shoe Shop</h1>
+            </div>
+<!-- Container -->
+            <div class="row">
+                <div class="col-md-6">
+                    <h2>{{ store.getStoreName }}</h2>
+                    <p>{{ store.getStreet }}</p>
+                    <p>{{ store.getCity }}, {{ store.getState }}</p>
+                    {% if match_brands is not empty %}
+                        <h3>Brands:</h3>
+                        <ul>
+                            {% for brand in match_brands %}
+                                <li><a href="brand/{{ brand.getId }}">{{ brand.getBrandName }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <h4>This store has no brands.</h4>
+                    {% endif %}
+                </div>
+
+                <div class="col-md-6">
+                    <h3>Other Brands:</h3>
+                    {% if nonmatch_brands is not empty %}
+                        <ul>
+                            {% for brand in nonmatch_brands %}
+                            <li><a href="brand/{{ brand.getId }}">{{ brand.getBrandName }}</a>
+                                <form class="" action="store/{{ store.getId }}add/brand/{{ brand.getId }}" method="post">
+                                    <button type="submit" name="button">ADD BRAND</button>
+                                </form>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <h4>Create a new brand below.</h4>
+                    {% endif %}
+
+                    <h3>Create a Brand:</h3>
+                    <form action="/store/{{ store.getId }}/create/brand" method="post">
+                        <div class="form-group">
+                            <label for="brand_name">Brand Name:</label>
+                            <input type="text" name="brand_name" value="">
+                        </div>
+                        <button type="submit" name="button">Create Brand</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
