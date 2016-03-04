@@ -47,10 +47,16 @@
         $store = Store::find($id);
         $brand_id = $_POST['brand'];
         $brand = Brand::find($brand_id);
-        $store->addBrand($brand);
+        $already_saved = $store->addBrand($brand);
+        $message = null;
+        if ($already_saved != null) {
+            $message = "That brand has already been added.";
+        } else {
+            $message = "You added a new brand.";
+        }
         $store_brands = $store->getBrands();
         $all_brands = Brand::getAll();
-        return $app['twig']->render('store.html.twig', array('store' => $store, 'match_brands' => $store_brands, 'all_brands' => $all_brands));
+        return $app['twig']->render('store.html.twig', array('store' => $store, 'match_brands' => $store_brands, 'all_brands' => $all_brands, 'message' => $message));
     });
 
 //create brand on store page

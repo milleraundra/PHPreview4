@@ -24,6 +24,9 @@
                                 <li><a href="brand/{{ brand.getId }}">{{ brand.getBrandName }}</a></li>
                             {% endfor %}
                         </ul>
+                        {% if message is not empty %}
+                            <h5>{{ message }}</h5>
+                        {% endif %}
                     {% else %}
                         <h4>This store has no brands.</h4>
                     {% endif %}

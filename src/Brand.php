@@ -87,14 +87,15 @@
             return $found_brand;
         }
 
-        function addStore($store)
+        function addStore($input_store)
         {
-            $query = $GLOBALS['DB']->query("SELECT * FROM stores_brands WHERE store.id = {$store->getId()} AND brand.id = {$this->getId()};");
+            $query = $GLOBALS['DB']->query("SELECT * FROM stores_brands WHERE store_id = {$input_store->getId()} AND brand_id = {$this->getId()};");
+            $returned_stores = $query->fetchAll(PDO::FETCH_ASSOC);
             $already_saved = null;
-            if ($query == false) {
-                $GLOBALS['DB']->exec("INSERT INTO stores_brands (store_id, brand_id) VALUES ({$store->getId()}, {$this->getId()});");
-            } else {
+            if ($returned_stores != []) {
                 $already_saved = true;
+            } else {
+                $GLOBALS['DB']->exec("INSERT INTO stores_brands (store_id, brand_id) VALUES ({$input_store->getId()}, {$this->getId()});");
             }
             return $already_saved;
         }
