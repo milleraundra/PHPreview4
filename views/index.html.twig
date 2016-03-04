@@ -1,0 +1,42 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+        <meta charset="utf-8">
+        <title>Shoe Shop</title>
+    </head>
+    <body>
+        <div class="container">
+<!-- Header -->
+            <div class="page-header">
+                <h1>Shoe Shop</h1>
+            </div>
+<!-- Container -->
+            <div class="row">
+                <div class="col-md-6">
+                    <h2>Stores:</h2>
+                    {% if all_stores is not empty %}
+                    <h3>All Stores:</h3>
+                    {% else %}
+                        <h4>No stores have been added yet. Please add one below!</h4>
+                    {% endif %}
+                    <h3>Create a Store:</h3>
+                    <form action="/create/store" method="post">
+                        <label for="store_name">Store Name:</label>
+                        <input type="text" name="store_name" value="">
+                        <h5>Address:</h5>
+                            <label for="street">Street:</label>
+                            <input type="text" name="street" value="">
+                            <label for="city">City:</label>
+                            <input type="text" name="city" value="">
+                            <label for="state">State:</label>
+                            <input type="text" name="name" maxlength="2">
+                    </form>
+                </div>
+
+                <div class="col-md-6">
+                    <h2>Brands:</h2>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
