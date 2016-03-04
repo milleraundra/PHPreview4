@@ -165,10 +165,17 @@
             $test_store2 = new Store($store_name, $street, $city, $state, null);
             $test_store2->save();
 
+            $store_name = "Marvin";
+            $street = "180 SW Washington St.";
+            $city = "Clackamas";
+            $state = "OR";
+            $test_store3 = new Store($store_name, $street, $city, $state, null);
+            $test_store3->save();
+
             $test_brand->addStore($test_store);
             $result = $test_brand->getNonmatchStores();
 
-            $this->assertEquals([$test_brand2], $result);
+            $this->assertEquals([$test_store2, $test_store3], $result);
         }
 
 
