@@ -56,10 +56,10 @@
         {
             return $this->state;
         }
-        
-        function getState()
+
+        function getId()
         {
-            return $this->state;
+            return $this->id;
         }
 
 
