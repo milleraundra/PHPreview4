@@ -228,7 +228,7 @@
             //Act
             $test_store->addBrand($test_brand);
             $test_store->addBrand($test_brand2);
-            $test_store->getBrands();
+            $result = $test_store->getBrands();
 
             //Assert
             $this->assertEquals([$test_brand, $test_brand2], $result);
