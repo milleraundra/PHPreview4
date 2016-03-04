@@ -11,6 +11,8 @@
     $password = 'root';
     $DB = new PDO($server, $username, $password);
 
+    $app['debug'] = true;
+
     $app->register(new Silex\Provider\TwigServiceProvider(), array(
         'twig.path' => __DIR__.'/../views'
     ));
@@ -37,20 +39,29 @@
     $app->get("/store/{id}", function($id) use ($app) {
         $store = Store::find($id);
         $store_brands = $store->getBrands();
-        $other_brands = Brand::getAll();
-        return $app['twig']->render('store.html.twig', array('store' => $store, 'match_brands' => $store_brands, 'nonmatch_brands' => $other_brands));
+        $all_brands = Brand::getAll();
+        return $app['twig']->render('store.html.twig', array('store' => $store, 'match_brands' => $store_brands, 'all_brands' => $all_brands));
     });
 //add a brand to a store
-    // $app->post("/store/{id}/add/brand/{id}")
+    $app->post("/store/{id}/add/brand", function($id) use ($app) {
+        $store = Store::find($id);
+        $brand_id = $_POST['brand'];
+        $brand = Brand::find($brand_id);
+        $store->addBrand($brand);
+        $store_brands = $store->getBrands();
+        $all_brands = Brand::getAll();
+        return $app['twig']->render('store.html.twig', array('store' => $store, 'match_brands' => $store_brands, 'all_brands' => $all_brands));
+    });
 
 //create brand on store page
     $app->post("/store/{id}/create/brand", function($id) use ($app) {
         $store = Store::find($id);
         $new_brand = new Brand($_POST['brand_name']);
+        var_dump($new_brand);
         $new_brand->save();
         $store_brands = $store->getBrands();
-        $other_brands = Brand::getAll();
-        return $app['twig']->render('store.html.twig', array('store' => $store, 'match_brands' => $store_brands, 'nonmatch_brands' => $other_brands));
+        $all_brands = Brand::getAll();
+        return $app['twig']->render('store.html.twig', array('store' => $store, 'match_brands' => $store_brands, 'all_brands' => $all_brands));
     });
 
 //view brand page

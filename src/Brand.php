@@ -112,25 +112,25 @@
             return $stores;
         }
 
-        function getNonmatchStores()
-        {
-            $query = $GLOBALS['DB']->query("SELECT stores.* FROM brands
-                JOIN stores_brands ON (brands.id = stores_brands.brand_id)
-                JOIN stores ON (stores_brands.store_id <> stores.id)
-                WHERE brands.id = {$this->getId()};");
-            $returned_stores = $query->fetchAll(PDO::FETCH_ASSOC);
-            $stores = array();
-            foreach($returned_stores as $store) {
-                $store_name = $store['store_name'];
-                $street = $store['street'];
-                $city = $store['city'];
-                $state= $store['state'];
-                $id = $store['id'];
-                $new_store = new Store($store_name, $street, $city, $state, $id);
-                array_push($stores, $new_store);
-            }
-            return $stores;
-        }
+        // function getNonmatchStores()
+        // {
+        //     $query = $GLOBALS['DB']->query("SELECT stores.* FROM brands
+        //         JOIN stores_brands ON (brands.id = stores_brands.brand_id)
+        //         JOIN stores ON (stores_brands.store_id <> stores.id)
+        //         WHERE brands.id = {$this->getId()};");
+        //     $returned_stores = $query->fetchAll(PDO::FETCH_ASSOC);
+        //     $stores = array();
+        //     foreach($returned_stores as $store) {
+        //         $store_name = $store['store_name'];
+        //         $street = $store['street'];
+        //         $city = $store['city'];
+        //         $state= $store['state'];
+        //         $id = $store['id'];
+        //         $new_store = new Store($store_name, $street, $city, $state, $id);
+        //         array_push($stores, $new_store);
+        //     }
+        //     return $stores;
+        // }
     }
 
 

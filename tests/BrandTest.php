@@ -144,39 +144,39 @@
             $this->assertEquals([$test_store, $test_store2], $result);
         }
 
-        function test_getNonmatchStores()
-        {
-            //Arrange
-            $brand_name = "Converse";
-            $test_brand = new Brand($brand_name, null);
-            $test_brand->save();
-
-            $store_name = "Sears";
-            $street = "392 SW Washington St.";
-            $city = "Oregon City";
-            $state = "OR";
-            $test_store = new Store($store_name, $street, $city, $state, null);
-            $test_store->save();
-
-            $store_name = "Pluto";
-            $street = "180 SW Washington St.";
-            $city = "Clackamas";
-            $state = "OR";
-            $test_store2 = new Store($store_name, $street, $city, $state, null);
-            $test_store2->save();
-
-            $store_name = "Marvin";
-            $street = "180 SW Washington St.";
-            $city = "Clackamas";
-            $state = "OR";
-            $test_store3 = new Store($store_name, $street, $city, $state, null);
-            $test_store3->save();
-
-            $test_brand->addStore($test_store);
-            $result = $test_brand->getNonmatchStores();
-
-            $this->assertEquals([$test_store2, $test_store3], $result);
-        }
+        // function test_getNonmatchStores()
+        // {
+        //     //Arrange
+        //     $brand_name = "Converse";
+        //     $test_brand = new Brand($brand_name, null);
+        //     $test_brand->save();
+        //
+        //     $store_name = "Sears";
+        //     $street = "392 SW Washington St.";
+        //     $city = "Oregon City";
+        //     $state = "OR";
+        //     $test_store = new Store($store_name, $street, $city, $state, null);
+        //     $test_store->save();
+        //
+        //     $store_name = "Pluto";
+        //     $street = "180 SW Washington St.";
+        //     $city = "Clackamas";
+        //     $state = "OR";
+        //     $test_store2 = new Store($store_name, $street, $city, $state, null);
+        //     $test_store2->save();
+        //
+        //     $store_name = "Marvin";
+        //     $street = "180 SW Washington St.";
+        //     $city = "Clackamas";
+        //     $state = "OR";
+        //     $test_store3 = new Store($store_name, $street, $city, $state, null);
+        //     $test_store3->save();
+        //
+        //     $test_brand->addStore($test_store);
+        //     $result = $test_brand->getNonmatchStores();
+        //
+        //     $this->assertEquals([$test_store2, $test_store3], $result);
+        // }
 
 
     }
