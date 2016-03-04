@@ -36,6 +36,20 @@
             $this->assertEquals($id, is_numeric($result5));
         }
 
+        function test_adjustPunctuation()
+        {
+            $store_name = "Macy's";
+            $street = "180 SW Washington St.";
+            $city = "Clackamas";
+            $state = "OR";
+            $test_store2 = new Store($store_name, $street, $city, $state, null);
+
+            $test_store2->save();
+            $result = $test_store2->getStoreName();
+
+            $this->assertEquals("Macy\'s", $result);
+        }
+
         function test_save()
         {
             $store_name = "Payless";
@@ -50,6 +64,7 @@
 
             $this->assertEquals([$test_store], $result);
         }
+
 
         function test_getAll()
         {

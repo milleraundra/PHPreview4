@@ -62,8 +62,17 @@
             return $this->id;
         }
 
+        function adjustPunctuation($input)
+        {
+            $search = "/(\')/";
+            $replace = "\'";
+            $clean_input = preg_replace($search, $replace, $input);
+            return $clean_input;
+        }
+
         function save()
         {
+            $this->setStoreName($this->adjustPunctuation($this->getStoreName()));
             $GLOBALS['DB']->exec("INSERT INTO stores (store_name, street, city, state) VALUES ('{$this->getStoreName()}', '{$this->getStreet()}', '{$this->getCity()}', '{$this->getState()}');");
             $this->id = $GLOBALS['DB']->lastInsertId();
         }
@@ -83,6 +92,9 @@
             }
             return $stores;
         }
+
+
+
 
     }
 
