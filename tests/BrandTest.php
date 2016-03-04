@@ -89,6 +89,56 @@
             $this->assertEquals($test_brand, $result);
         }
 
+        function test_addStore()
+        {
+            //Arrange
+            $brand_name = "Converse";
+            $test_brand = new Brand($brand_name, null);
+            $test_brand->save();
+
+            $store_name = "Payless";
+            $street = "392 SW Washington St.";
+            $city = "Oregon City";
+            $state = "OR";
+            $test_store = new Store($store_name, $street, $city, $state, null);
+
+            //Act
+            $test_brand->addStore($test_store);
+            $result = $test_brand->getStores();
+
+            //Assert
+            $this->assertEquals([$test_store], $result);
+        }
+
+        function test_getStores()
+        {
+            //Arrange
+            $brand_name = "Converse";
+            $test_brand = new Brand($brand_name, null);
+            $test_brand->save();
+
+            $store_name = "Payless";
+            $street = "392 SW Washington St.";
+            $city = "Oregon City";
+            $state = "OR";
+            $test_store = new Store($store_name, $street, $city, $state, null);
+
+            $store_name = "Dress Barn";
+            $street = "180 SW Washington St.";
+            $city = "Clackamas";
+            $state = "OR";
+            $test_store2 = new Store($store_name, $street, $city, $state, null);
+            $test_store2->save();
+
+            //Act
+            $test_brand->addStore($test_store);
+            $test_brand->addStore($test_store2);
+            $result = $test_brand->getStores();
+
+            //Assert
+            $this->assertEquals([$test_brand, $test_brand2], $result);
+        }
+
 
     }
 
