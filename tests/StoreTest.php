@@ -14,6 +14,11 @@
 
     class StoreTest extends PHPUnit_Framework_TestCase
     {
+        protected function TearDown()
+        {
+            Store::deleteAll();
+        }
+
         function test_allGetters()
         {
             $store_name = "Payless";
@@ -75,7 +80,7 @@
             $test_store = new Store($store_name, $street, $city, $state, null);
             $test_store->save();
 
-            $store_name = "Macy's";
+            $store_name = "Dress Barn";
             $street = "180 SW Washington St.";
             $city = "Clackamas";
             $state = "OR";
@@ -85,6 +90,28 @@
             $result = Store::getAll();
 
             $this->assertEquals([$test_store, $test_store2], $result);
+        }
+
+        function test_deleteAll()
+        {
+            $store_name = "Payless";
+            $street = "392 SW Washington St.";
+            $city = "Oregon City";
+            $state = "OR";
+            $test_store = new Store($store_name, $street, $city, $state, null);
+            $test_store->save();
+
+            $store_name = "Macy's";
+            $street = "180 SW Washington St.";
+            $city = "Clackamas";
+            $state = "OR";
+            $test_store2 = new Store($store_name, $street, $city, $state, null);
+            $test_store2->save();
+
+            Store::deleteAll();
+            $result = Store::getAll();
+
+            $this->assertEquals([], $result);
         }
     }
 
