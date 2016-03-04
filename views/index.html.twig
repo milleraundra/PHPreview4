@@ -42,7 +42,7 @@
                         </div>
                         <div class="form-group">
                             <label for="state">State:</label>
-                            <input type="text" name="name" maxlength="2">
+                            <input type="text" name="state" maxlength="2">
                         </div>
                         <button type="submit" name="button">Create Store</button>
                     </form>
@@ -50,6 +50,17 @@
 
                 <div class="col-md-6">
                     <h2>Brands:</h2>
+                    {% if all_brands is not empty %}
+                    <h3>All Brands:</h3>
+                    <ul>
+                        {% for brand in all_brands %}
+                            <li><a href="/brand/{{ brand.getId }}">{{ brand.getStoreName }}</a></li>
+                        {% endfor %}
+                    </ul>
+                    {% else %}
+                        <h4>No brands have been added yet. Please add one below!</h4>
+                    {% endif %}
+                    <h3>Create a Store:</h3>
                 </div>
             </div>
         </div>
