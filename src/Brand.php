@@ -36,8 +36,17 @@
             return $this->id;
         }
 
+        function adjustPunctuation($input)
+        {
+            $search = "/(\')/";
+            $replace = "\'";
+            $clean_input = preg_replace($search, $replace, $input);
+            return $clean_input;
+        }
+
         function save()
         {
+            $this->setBrandName($this->adjustPunctuation($this->getBrandName()));
             $GLOBALS['DB']->exec("INSERT INTO brands (brand_name) VALUES ('{$this->getBrandName()}');");
             $this->id = $GLOBALS['DB']->lastInsertId();
         }
