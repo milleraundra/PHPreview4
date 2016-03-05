@@ -120,10 +120,18 @@
             return $stores;
         }
 
-        // function getAllExcept($id)
-        // {
-        //
-        // }
+        static function getAllExcept($id)
+        {
+            $returned_brands = $GLOBALS['DB']->query("SELECT * FROM brands WHERE id <> {$id};");
+            $brands = array();
+            foreach($returned_brands as $brand){
+                $brand_name = $brand['brand_name'];
+                $id = $brand['id'];
+                $new_brand = new Brand($brand_name, $id);
+                array_push($brands, $new_brand);
+            }
+            return $brands;
+        }
     }
 
 
