@@ -16,8 +16,7 @@
                 <div class="col-md-6">
                     <h2>STORE: {{ store.getStoreName }}</h2>
                     <h4>Address:</h4>
-                    <p>{{ store.getStreet }}</p>
-                    <p>{{ store.getCity }}, {{ store.getState }}</p>
+                    <p>{{ store.getStreet }}, {{ store.getCity }} {{ store.getState }}</p>
                     {% if match_brands is not empty %}
                         <h3>Brands:</h3>
                         <ul>
@@ -31,13 +30,17 @@
                     {% else %}
                         <h4>This store has no brands.</h4>
                     {% endif %}
-                    <br>
-                    <form class="" action="/" method="get">
-                        <button type="submit" name="button">Home</button>
-                    </form>
                     <form class="" action="/store/{{store.getId}}/delete" method="post">
-                        <button type="submit" name="button">DELETE STORE</button>
+                        <button type="submit" name="button">Delete Store</button>
                     </form>
+                    <br>
+                    <h3>Other Stores:</h3>
+                    <ul>
+                        {% for other_store in all_stores %}
+                        <li><a href="/store/{{other_store.getId}}">{{other_store.getStoreName}}</a></li>
+                        {% endfor %}
+                    </ul>
+
                 </div>
 <!-- Brand listing -->
                 <div class="col-md-6">
@@ -48,7 +51,7 @@
                         <li><a href="/brand/{{ brand.getId }}">{{ brand.getBrandName }}</a>
                             <form class="" action="/store/{{ store.getId }}/add/brand" method="post">
                                 <input type="hidden" name="brand" value="{{ brand.getId }}">
-                                <button type="submit" name="button">ADD BRAND</button>
+                                <button type="submit" name="button">Add Brand</button>
                             </form>
                         </li>
                         {% endfor %}
@@ -56,6 +59,10 @@
                     {% else %}
                         <h4>Create a new brand below.</h4>
                     {% endif %}
+                    <br>
+                    <form class="" action="/" method="get">
+                        <button type="submit" name="button">Home</button>
+                    </form>
 
                     <h3>Create a Brand:</h3>
                     <form action="/store/{{ store.getId }}/create/brand" method="post">

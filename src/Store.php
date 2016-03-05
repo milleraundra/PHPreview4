@@ -153,6 +153,22 @@
             return $brands;
         }
 
+        static function getAllExcept($id)
+        {
+            $returned_stores = $GLOBALS['DB']->query("SELECT * FROM stores WHERE id <> {$id};");
+            $stores = array();
+            foreach($returned_stores as $store) {
+                $store_name = $store['store_name'];
+                $street = $store['street'];
+                $city = $store['city'];
+                $state= $store['state'];
+                $id = $store['id'];
+                $new_store = new Store($store_name, $street, $city, $state, $id);
+                array_push($stores, $new_store);
+            }
+            return $stores;
+        }
+
         // function getNonmatchBrands()
         // {
         //     $query = $GLOBALS['DB']->query("SELECT brands.* FROM stores JOIN stores_brands ON (stores.id = stores_brands.store_id) JOIN brands ON (stores_brands.brand_id <> brands.id) WHERE stores.id = {$this->getId()};");

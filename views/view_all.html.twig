@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+        <meta charset="utf-8">
+        <title></title>
+    </head>
+    <body>
+        <div class="container">
+<!-- Header -->
+            <div class="page-header">
+                <h1>Shoe Shop</h1>
+            </div>
+<!-- Container -->
+            <div class="row">
+                <div class="col-md-6">
+                    {% if all_stores is not empty %}
+                    <h3>Stores and their brands:</h3>
+                    <ul>
+                        {% for store in all_stores %}
+                        <li><a href="/store/{{store.getId}}">{{store.getStoreName}}</a></li>
+                        <ul>
+                            {% set all_brands = store.getBrands %}
+                            {% for brand in all_brands %}
+                                <li><a href="/brand/{{brand.getId}}">{{brand.getBrandName}}</a></li>
+                            {% endfor %}
+                        </ul>
+                        {% endfor %}
+                    </ul>
+                    {% else %}
+                    <h3>No existing associations. You can create them <a href="/">here!</a></h3>
+                    {% endif %}
+                    <br>
+                    <form class="" action="/" method="get">
+                        <button type="submit" name="button">Home</button>
+                    </form>
+                    <br>
+                    <form class="" action="/delete_all" method="post">
+                        <button type="submit" name="button">Delete All</button>
+                    </form>
+                </div>
+
+                <div class="col-md-6">
+
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

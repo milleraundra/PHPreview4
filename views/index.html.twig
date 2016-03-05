@@ -31,7 +31,7 @@
                             <input type="text" name="store_name" value="">
                         </div>
 
-                        <h5>Address:</h5>
+                        <h4>Address:</h4>
                         <div class="form-group">
                             <label for="street">Street:</label>
                             <input type="text" name="street" value="">
@@ -46,8 +46,16 @@
                         </div>
                         <button type="submit" name="button">Create Store</button>
                     </form>
-                </div>
+                    <br>
+                    <form class="" action="/view_all" method="get">
+                        <button type="submit" name="button">View Associations</button>
+                    </form>
+                    <form class="" action="/delete_all" method="post">
+                        <button type="submit" name="button">Delete All</button>
+                    </form>
 
+                </div>
+<!-- second col -->
                 <div class="col-md-6">
                     <h2>Brands:</h2>
                     {% if all_brands is not empty %}
