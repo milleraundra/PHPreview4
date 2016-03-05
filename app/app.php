@@ -51,7 +51,7 @@
     $app->get("/store/{id}", function($id) use ($app) {
         $store = Store::find($id);
         $message = null;
-        return $app['twig']->render('store.html.twig', array('store' => $store, 'all_stores' => Store::getAll(), 'match_brands' => $store->getBrands(), 'all_brands' => Brand::getAll(), 'message' => $message));
+        return $app['twig']->render('store.html.twig', array('store' => $store, 'all_stores' => Store::getAllExcept($id), 'match_brands' => $store->getBrands(), 'all_brands' => Brand::getAll(), 'message' => $message));
     });
 //add a brand to a store
     $app->post("/store/{id}/add/brand", function($id) use ($app) {
@@ -64,7 +64,7 @@
         } else {
             $message = "You added a new brand.";
         }
-        return $app['twig']->render('store.html.twig', array('store' => $store, 'all_stores' => Store::getAll(), 'match_brands' => $store->getBrands(), 'all_brands' => Brand::getAll(), 'message' => $message));
+        return $app['twig']->render('store.html.twig', array('store' => $store, 'all_stores' => Store::getAllExcept($id), 'match_brands' => $store->getBrands(), 'all_brands' => Brand::getAll(), 'message' => $message));
     });
 
 //create brand on store page
@@ -73,7 +73,7 @@
         $new_brand = new Brand($_POST['brand_name']);
         $new_brand->save();
         $message = null;
-        return $app['twig']->render('store.html.twig', array('store' => $store, 'all_stores' => Store::getAll(), 'match_brands' => $store->getBrands(), 'all_brands' => Brand::getAll(), 'message' => $message));
+        return $app['twig']->render('store.html.twig', array('store' => $store, 'all_stores' => Store::getAllExcept($id), 'match_brands' => $store->getBrands(), 'all_brands' => Brand::getAll(), 'message' => $message));
     });
 
 //delete individual store

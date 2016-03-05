@@ -35,12 +35,16 @@
                     </form>
                     <br>
                     <h3>Other Stores:</h3>
+                    {% if all_stores is not empty %}
                     <ul>
                         {% for other_store in all_stores %}
                         <li><a href="/store/{{other_store.getId}}">{{other_store.getStoreName}}</a></li>
                         {% endfor %}
                     </ul>
-
+                    {% endif %}
+                    <form class="" action="/" method="get">
+                        <button type="submit" name="button">Home</button>
+                    </form>
                 </div>
 <!-- Brand listing -->
                 <div class="col-md-6">
@@ -60,9 +64,6 @@
                         <h4>Create a new brand below.</h4>
                     {% endif %}
                     <br>
-                    <form class="" action="/" method="get">
-                        <button type="submit" name="button">Home</button>
-                    </form>
 
                     <h3>Create a Brand:</h3>
                     <form action="/store/{{ store.getId }}/create/brand" method="post">

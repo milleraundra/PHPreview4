@@ -28,6 +28,15 @@
                     {% else %}
                         <h4>This brand has no stores.</h4>
                     {% endif %}
+                    <br>
+                    <h3>Other Brands:</h3>
+                    {% if all_stores is not empty %}
+                    <ul>
+                        {% for other_store in all_stores %}
+                        <li><a href="/store/{{other_store.getId}}">{{other_store.getStoreName}}</a></li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
 
                     <form class="" action="/" method="get">
                         <button type="submit" name="button">Home</button>
