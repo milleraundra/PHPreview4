@@ -30,10 +30,10 @@
                     {% endif %}
                     <br>
                     <h3>Other Brands:</h3>
-                    {% if all_stores is not empty %}
+                    {% if all_brands is not empty %}
                     <ul>
-                        {% for other_store in all_stores %}
-                        <li><a href="/store/{{other_store.getId}}">{{other_store.getStoreName}}</a></li>
+                        {% for other_brand in all_brands %}
+                        <li><a href="/brand/{{other_brand.getId}}">{{ other_brand.getBrandName }}</a></li>
                         {% endfor %}
                     </ul>
                     {% endif %}
